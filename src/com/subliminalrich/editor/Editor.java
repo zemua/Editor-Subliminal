@@ -10,7 +10,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioFileFormat;
@@ -66,6 +68,11 @@ public class Editor extends javax.swing.JFrame {
         labelFrecuencia = new javax.swing.JLabel();
         sliderFrecuenciaTonos = new javax.swing.JSlider();
         labelFrecuenciaTonos = new javax.swing.JLabel();
+        sliderBandasVocoder = new javax.swing.JSlider();
+        labelBandasVocoder = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        comboVentanaVocoder = new javax.swing.JComboBox();
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -79,6 +86,10 @@ public class Editor extends javax.swing.JFrame {
         labelVolumenSilent = new javax.swing.JLabel();
         sliderVocoder = new javax.swing.JSlider();
         labelVolumenVocoder = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        botonWavToMp3 = new javax.swing.JButton();
+        botonMp3ToWav = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -102,7 +113,7 @@ public class Editor extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        labelLicencia.setText("Este es un programa gratuito y de libre distribución. Versión 0.2.2.3");
+        labelLicencia.setText("Este es un programa gratuito y de libre distribución. Versión 0.3.3.0");
 
         labelSBR.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelSBR.setForeground(new java.awt.Color(0, 0, 255));
@@ -190,7 +201,7 @@ public class Editor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(infoMusica))
                     .addComponent(labelMusica))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +242,7 @@ public class Editor extends javax.swing.JFrame {
             }
         });
 
-        labelNumeroRepeticiones.setText("Repetir audio de voz: 30 veces");
+        labelNumeroRepeticiones.setText("Repetir audio de voz: 1 veces");
 
         jSlider1.setMajorTickSpacing(100);
         jSlider1.setMaximum(20000);
@@ -259,28 +270,66 @@ public class Editor extends javax.swing.JFrame {
 
         labelFrecuenciaTonos.setText("Frecuencia de tonos: 10.00 hz");
 
+        sliderBandasVocoder.setMaximum(15);
+        sliderBandasVocoder.setMinimum(3);
+        sliderBandasVocoder.setValue(9);
+        sliderBandasVocoder.setEnabled(false);
+        sliderBandasVocoder.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderBandasVocoderStateChanged(evt);
+            }
+        });
+
+        labelBandasVocoder.setText("Bandas del Vocoder: 9");
+
+        jLabel2.setText("(Más bandas = Más calidad = Más memoria y tiempo de procesamiento necesarios)");
+
+        jLabel5.setText("Intenta probar primero el resultado con 1 repetición, tardará menos en procesarse");
+
+        comboVentanaVocoder.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bandas Normales", "Filtrar Chasquidos", "Filtro Fuerte", "¡Extra Fuerte!" }));
+        comboVentanaVocoder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboVentanaVocoderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(botonRestarRepeticiones)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonSumarRepeticiones)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelNumeroRepeticiones))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelFrecuencia))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(sliderBandasVocoder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelBandasVocoder)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboVentanaVocoder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(sliderFrecuenciaTonos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelFrecuenciaTonos))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(sliderFrecuenciaTonos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelFrecuenciaTonos))
+                        .addContainerGap()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(botonRestarRepeticiones)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botonSumarRepeticiones)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelNumeroRepeticiones))
+                            .addComponent(jLabel5)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelFrecuencia)))
-                .addContainerGap(104, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,6 +340,8 @@ public class Editor extends javax.swing.JFrame {
                     .addComponent(botonSumarRepeticiones)
                     .addComponent(labelNumeroRepeticiones))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sliderFrecuenciaTonos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelFrecuenciaTonos))
@@ -298,7 +349,15 @@ public class Editor extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelFrecuencia))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sliderBandasVocoder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelBandasVocoder)
+                        .addComponent(comboVentanaVocoder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Parámetros", jPanel6);
@@ -348,7 +407,6 @@ public class Editor extends javax.swing.JFrame {
 
         labelVolumenSilent.setText("Volumen Silent Subliminal: 45%");
 
-        sliderVocoder.setValue(45);
         sliderVocoder.setEnabled(false);
         sliderVocoder.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -356,8 +414,7 @@ public class Editor extends javax.swing.JFrame {
             }
         });
 
-        labelVolumenVocoder.setText("Volumen Vocoder: 45%");
-        labelVolumenVocoder.setEnabled(false);
+        labelVolumenVocoder.setText("Volumen Vocoder: 50%");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -388,7 +445,7 @@ public class Editor extends javax.swing.JFrame {
                         .addComponent(sliderVocoder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelVolumenVocoder)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,6 +478,45 @@ public class Editor extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Volúmenes", jPanel8);
+
+        botonWavToMp3.setText("Convertir a Wav");
+        botonWavToMp3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonWavToMp3ActionPerformed(evt);
+            }
+        });
+
+        botonMp3ToWav.setText("Convertir a mp3");
+
+        jLabel6.setText("Selecciona el tipo de conversión que deseas realizar");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(botonWavToMp3)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonMp3ToWav))
+                    .addComponent(jLabel6))
+                .addContainerGap(293, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonWavToMp3)
+                    .addComponent(botonMp3ToWav))
+                .addContainerGap(111, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Conversor", jPanel1);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/subliminalrich/editor/recursos/sbr-logo-espanol-180h - copia.png"))); // NOI18N
 
@@ -483,9 +579,9 @@ public class Editor extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -667,6 +763,30 @@ public class Editor extends javax.swing.JFrame {
         worker.execute();
     }//GEN-LAST:event_botonProcesarActionPerformed
 
+    private void sliderBandasVocoderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderBandasVocoderStateChanged
+        labelBandasVocoder.setText("Bandas del Vocoder: " + sliderBandasVocoder.getValue());
+    }//GEN-LAST:event_sliderBandasVocoderStateChanged
+    int ventana = 1; // Tipo de ventana del vocoder
+    private void comboVentanaVocoderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVentanaVocoderActionPerformed
+        int item = comboVentanaVocoder.getSelectedIndex();
+        if (item == 0) {
+            ventana = 1;
+        }
+        if (item == 1) {
+            ventana = 9;
+        }
+        if (item == 2) {
+            ventana = 6;
+        }
+        if (item == 3) {
+            ventana = 4;
+        }
+    }//GEN-LAST:event_comboVentanaVocoderActionPerformed
+
+    private void botonWavToMp3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonWavToMp3ActionPerformed
+            // TODO add your handling code here:
+    }//GEN-LAST:event_botonWavToMp3ActionPerformed
+
     class Trabajador extends SwingWorker<Void, Void> {
 
         /*ModulateWav modulador;
@@ -679,6 +799,8 @@ public class Editor extends javax.swing.JFrame {
             try {
                 // Realizamos aquí el trabajo de fondo para no bloquear el programa
                 JScrollBar bar = scrollPane.getVerticalScrollBar();
+                List<Double> volumenesList = new ArrayList<>();
+                List<String> archivosList = new ArrayList<>();
 
                 // Deshabilitamos los botones
                 botonProcesar.setEnabled(false);
@@ -686,7 +808,7 @@ public class Editor extends javax.swing.JFrame {
                 botonGrabar.setEnabled(false);
                 botonMusica.setEnabled(false);
                 desactivaControles();
-                
+
                 boolean todaviaNoError = true;
 
                 textArea.append("\nProcesando el audio subliminal...\n");
@@ -695,8 +817,11 @@ public class Editor extends javax.swing.JFrame {
                 // Inicializamos el modulador
                 String rutaVoz = archivoAbierto.getAbsolutePath();
                 ModulateWav modulador = new ModulateWav(rutaVoz);
-                
-                if(modulador.error != 0){
+
+                modulador.bar = bar;
+                modulador.textArea = textArea;
+
+                if (modulador.error != 0) {
                     todaviaNoError = false;
                     textArea.append("Error abriendo el archivo de voz...\n");
                     bar.setValue(bar.getMaximum());
@@ -711,8 +836,8 @@ public class Editor extends javax.swing.JFrame {
                 //modulador.setVozEntrada(rutaVoz);
                 modulador.setVozConvertida(getRutaTemporal("voz"));
                 modulador.convertirVoz();
-                
-                if(modulador.error != 0){
+
+                if (modulador.error != 0) {
                     todaviaNoError = false;
                     textArea.append("Error abriendo la pista de voz...\n");
                     bar.setValue(bar.getMaximum());
@@ -723,185 +848,209 @@ public class Editor extends javax.swing.JFrame {
                 bar.setValue(bar.getMaximum());
                 modulador.setRepeticiones(nRepeticiones);
                 rutaAuxiliar = getRutaTemporal("vozrepetida");
-                modulador.repetir(modulador.getRepeticiones(), modulador.getVozConvertida(), rutaAuxiliar, textArea);
+                modulador.repetir(modulador.getRepeticiones(), modulador.getVozConvertida(), rutaAuxiliar);
                 ModulateWav.borrarArchivo(modulador.getVozConvertida()); // Borramos el archivo temporal
                 modulador.setVozConvertida(rutaAuxiliar);
-                
-                if(modulador.error != 0){
+
+                if (modulador.error != 0) {
                     todaviaNoError = false;
                     textArea.append("Error repitiendo la pista de voz...\n");
                     bar.setValue(bar.getMaximum());
                     modulador.error = 0;
                 }
 
-                textArea.append("Obteniendo el archivo de música...\n");
-                bar.setValue(bar.getMaximum());
-
-                // Obtenemos la ruta al archivo de música
-                if (archivoMusica.equals("")) {
-                    // Copiamos la música del recurso interno al inputstream y lo escribimos en un nuevo archivo
-                    rutaAuxiliar = archivoAbierto.getParent() + System.getProperty("file.separator") + "SonidoDeRelleno" + renuevaTimeStamp() + ".wav";
-                    // La metemos a la carpeta donde sacamos la voz por problemas con cerrar el stream en windows7
-                    modulador.setMusica("recursos/zRiver.wav");
-                    modulador.copiarRecurso(modulador.getMusica(), rutaAuxiliar);
-                    //modulador.getFile(modulador.getMusica(), rutaAuxiliar);
-                    modulador.setMusica(rutaAuxiliar);
-                } else {
-                    modulador.setMusica(archivoMusica);
-                }
-                
-                if(modulador.error != 0){
-                    todaviaNoError = false;
-                    textArea.append("Error obteniendo el archivo de música...\n");
+                if (sliderVolumenMusica.getValue() != 0 || sliderVocoder.getValue() != 0 || sliderVolumenIsocronico.getValue() != 0) {
+                    textArea.append("Obteniendo el archivo de música...\n");
                     bar.setValue(bar.getMaximum());
-                    modulador.error = 0;
-                }
 
-                textArea.append("Convirtiendo parámetros de la música...\n");
-                bar.setValue(bar.getMaximum());
-                // Convertimos la música en caso de ser necesario
-                rutaAuxiliar = getRutaTemporal("convMusica");
-                Conversor convertiente = new Conversor(modulador.getMusica(), rutaAuxiliar);
-                if (convertiente.necesitaConversion() == 1) { // necesita conversion
-                    convertiente.convertir();
-                    if (archivoMusica.equals("")) { // Solamente si sacamosel archivo del paquete...
-                        ModulateWav.borrarArchivo(modulador.getMusica());
+                    // Obtenemos la ruta al archivo de música
+                    if (archivoMusica.equals("")) {
+                        // Copiamos la música del recurso interno al inputstream y lo escribimos en un nuevo archivo
+                        rutaAuxiliar = archivoAbierto.getParent() + System.getProperty("file.separator") + "SonidoDeRelleno" + renuevaTimeStamp() + ".wav";
+                        // La metemos a la carpeta donde sacamos la voz por problemas con cerrar el stream en windows7
+                        modulador.setMusica("recursos/zRiver.wav");
+                        modulador.copiarRecurso(modulador.getMusica(), rutaAuxiliar);
+                        //modulador.getFile(modulador.getMusica(), rutaAuxiliar);
+                        modulador.setMusica(rutaAuxiliar);
+                    } else {
+                        modulador.setMusica(archivoMusica);
                     }
+
+                    if (modulador.error != 0) {
+                        todaviaNoError = false;
+                        textArea.append("Error obteniendo el archivo de música...\n");
+                        bar.setValue(bar.getMaximum());
+                        modulador.error = 0;
+                    }
+
+                    textArea.append("Convirtiendo parámetros de la música...\n");
+                    bar.setValue(bar.getMaximum());
+                    // Convertimos la música en caso de ser necesario
+                    rutaAuxiliar = getRutaTemporal("convMusica");
+                    Conversor convertiente = new Conversor(modulador.getMusica(), rutaAuxiliar);
+                    if (convertiente.necesitaConversion() == 1) { // necesita conversion
+                        convertiente.convertir();
+                        if (archivoMusica.equals("")) { // Solamente si sacamosel archivo del paquete...
+                            ModulateWav.borrarArchivo(modulador.getMusica());
+                        }
+                        modulador.setMusica(rutaAuxiliar);
+                    } else if (convertiente.necesitaConversion() == 0) {
+                        // El archivo no necesita conversión y no hay que tomar acción ninguna
+                    } else {
+                        modulador.error = 1;
+                    }
+
+                    if (modulador.error != 0) {
+                        todaviaNoError = false;
+                        textArea.append("Error convirtiendo la música...\n");
+                        textArea.append(modulador.errorMensaje + "\n");
+                        bar.setValue(bar.getMaximum());
+                        modulador.error = 0;
+                    }
+
+                    textArea.append("Configurando duración de la música...\n");
+                    bar.setValue(bar.getMaximum());
+                    // Repetimos la música a la calidad correcta para completar el tiempo de la pista
+                    rutaAuxiliar = getRutaTemporal("musicarepetida");
+                    modulador.repetirHastaIgualar(modulador.getMusica(), modulador.getVozConvertida(), rutaAuxiliar);
+                    ModulateWav.borrarArchivo(modulador.getMusica()); // Borramos el archivo temporal
                     modulador.setMusica(rutaAuxiliar);
-                } else if (convertiente.necesitaConversion() == 0) {
-                    // El archivo no necesita conversión y no hay que tomar acción ninguna
-                } else {
-                    modulador.error = 1;
-                }
-                
-                if(modulador.error != 0){
-                    todaviaNoError = false;
-                    textArea.append("Error convirtiendo la música...\n");
-                    textArea.append(modulador.errorMensaje + "\n");
-                    bar.setValue(bar.getMaximum());
-                    modulador.error = 0;
+
+                    if (modulador.error != 0) {
+                        todaviaNoError = false;
+                        textArea.append("Error configurando la duración de la pista...\n");
+                        bar.setValue(bar.getMaximum());
+                        modulador.error = 0;
+                    }
+                    archivosList.add(modulador.getMusica());
+                    volumenesList.add((double) sliderVolumenMusica.getValue());
                 }
 
-                textArea.append("Configurando duración de la música...\n");
-                bar.setValue(bar.getMaximum());
-                // Repetimos la música a la calidad correcta para completar el tiempo de la pista
-                rutaAuxiliar = getRutaTemporal("musicarepetida");
-                modulador.repetirHastaIgualar(modulador.getMusica(), modulador.getVozConvertida(), rutaAuxiliar);
-                ModulateWav.borrarArchivo(modulador.getMusica()); // Borramos el archivo temporal
-                modulador.setMusica(rutaAuxiliar);
-                
-                if(modulador.error != 0){
-                    todaviaNoError = false;
-                    textArea.append("Error configurando la duración de la pista...\n");
+                if (sliderVolumenIsocronico.getValue() != 0 && sliderVolumenMusica.getValue() != 0) {
+                    textArea.append("Generando un tono isocrónico...\n");
                     bar.setValue(bar.getMaximum());
-                    modulador.error = 0;
+                    modulador.setIsocronicoEnvelope(getRutaTemporal("envelope"));
+                    int segundos = modulador.getSegundos(modulador.getVozConvertida());
+                    float frecuencia = sliderFrecuenciaTonos.getValue() / 100;
+                    modulador.generarPulsosEnveloped(modulador.getFrecuenciaMuestreo(), segundos, modulador.getIsocronicoEnvelope(), frecuencia, frecuencia);
+
+                    if (modulador.error != 0) {
+                        todaviaNoError = false;
+                        textArea.append("Error generando un tono isocrónico...\n");
+                        bar.setValue(bar.getMaximum());
+                        modulador.error = 0;
+                    }
+
+                    textArea.append("Integrando el tono isocrónico en la música...\n");
+                    bar.setValue(bar.getMaximum());
+                    modulador.setisocronicoIntegrado(getRutaTemporal("isointegrado"));
+                    int pequeno = modulador.getPequeno(modulador.getMusica(), modulador.getIsocronicoEnvelope());
+                    if (pequeno == 1) {
+                        modulador.multiplicarOndas(modulador.getMusica(), modulador.getIsocronicoEnvelope(), modulador.getisocronicoIntegrado());
+                    } else if (pequeno == 2) {
+                        modulador.multiplicarOndas(modulador.getIsocronicoEnvelope(), modulador.getMusica(), modulador.getisocronicoIntegrado());
+                    } else {
+                        modulador.error = 1;
+                    }
+
+                    if (modulador.error != 0) {
+                        todaviaNoError = false;
+                        textArea.append("Error integrando el tono isocrónico en la música...\n");
+                        bar.setValue(bar.getMaximum());
+                        modulador.error = 0;
+                    }
+                    archivosList.add(modulador.getisocronicoIntegrado());
+                    volumenesList.add((double) sliderVolumenIsocronico.getValue());
                 }
 
-                textArea.append("Generando un tono isocrónico...\n");
-                bar.setValue(bar.getMaximum());
-                modulador.setIsocronicoEnvelope(getRutaTemporal("envelope"));
-                int segundos = modulador.getSegundos(modulador.getVozConvertida());
-                float frecuencia = sliderFrecuenciaTonos.getValue() / 100;
-                modulador.generarPulsosEnveloped(modulador.getFrecuenciaMuestreo(), segundos, modulador.getIsocronicoEnvelope(), frecuencia, frecuencia);
+                if (sliderVolumenBinaural.getValue() != 0 && sliderVolumenMusica.getValue() != 0) {
+                    textArea.append("Generando tono binaural...\n");
+                    bar.setValue(bar.getMaximum());
+                    modulador.setbinaural(getRutaTemporal("binaural"));
+                    modulador.generarTonoEstereo(modulador.getFrecuenciaMuestreo(), modulador.getSegundos(modulador.getVozConvertida()), modulador.getbinaural(), 300, 300 + (sliderFrecuenciaTonos.getValue() / 100));
 
-                if(modulador.error != 0){
-                    todaviaNoError = false;
-                    textArea.append("Error generando un tono isocrónico...\n");
-                    bar.setValue(bar.getMaximum());
-                    modulador.error = 0;
-                }
-                
-                textArea.append("Integrando el tono isocrónico en la música...\n");
-                bar.setValue(bar.getMaximum());
-                modulador.setisocronicoIntegrado(getRutaTemporal("isointegrado"));
-                int pequeno = modulador.getPequeno(modulador.getMusica(), modulador.getIsocronicoEnvelope());
-                if (pequeno == 1) {
-                    modulador.multiplicarOndas(modulador.getMusica(), modulador.getIsocronicoEnvelope(), modulador.getisocronicoIntegrado());
-                } else if (pequeno == 2) {
-                    modulador.multiplicarOndas(modulador.getIsocronicoEnvelope(), modulador.getMusica(), modulador.getisocronicoIntegrado());
-                } else {
-                    modulador.error = 1;
-                }
-                
-                if(modulador.error != 0){
-                    todaviaNoError = false;
-                    textArea.append("Error integrando el tono isocrónico en la música...\n");
-                    bar.setValue(bar.getMaximum());
-                    modulador.error = 0;
+                    if (modulador.error != 0) {
+                        todaviaNoError = false;
+                        textArea.append("Error generando el tono binaural...\n");
+                        bar.setValue(bar.getMaximum());
+                        modulador.error = 0;
+                    }
+                    archivosList.add(modulador.getbinaural());
+                    volumenesList.add((double) sliderVolumenBinaural.getValue() / 10);
                 }
 
-                textArea.append("Generando tono binaural...\n");
-                bar.setValue(bar.getMaximum());
-                modulador.setbinaural(getRutaTemporal("binaural"));
-                modulador.generarTonoEstereo(modulador.getFrecuenciaMuestreo(), modulador.getSegundos(modulador.getVozConvertida()), modulador.getbinaural(), 300, 300 + (sliderFrecuenciaTonos.getValue() / 100));
+                if (sliderVolumenSilent.getValue() != 0) {
+                    textArea.append("Modulando la voz a altas frecuencias...\n");
+                    bar.setValue(bar.getMaximum());
+                    modulador.setSilent(getRutaTemporal("silent"));
+                    modulador.SetModulacion(jSlider1.getValue());
+                    modulador.hacerSilent(modulador.getVozConvertida(), modulador.getSilent());
 
-                if(modulador.error != 0){
-                    todaviaNoError = false;
-                    textArea.append("Error generando el tono binaural...\n");
+                    if (modulador.error != 0) {
+                        todaviaNoError = false;
+                        textArea.append("Error modulando la voz a altas frecuencias...\n");
+                        bar.setValue(bar.getMaximum());
+                        modulador.error = 0;
+                    }
+                    archivosList.add(modulador.getSilent());
+                    volumenesList.add((double) sliderVolumenSilent.getValue());
+                }
+
+
+                if (sliderVocoder.getValue() != 0 && sliderVolumenMusica.getValue() != 0) {
+                    // VOCODER!!
+                    textArea.append("Realizando la Vocodificación...\n");
                     bar.setValue(bar.getMaximum());
-                    modulador.error = 0;
+                    modulador.setVocoder(getRutaTemporal("vocoder"));
+                    int milisegundos = 25; // Tamaño de la ventana
+                    int frecuenciaMuestreo = modulador.getFrecuenciaMuestreo(); // Frecuencia de muestreo del audio
+                    int canales = sliderBandasVocoder.getValue();
+                    modulador.ventana = ventana;
+
+                    modulador.vocodificar(modulador.getVozConvertida(), modulador.getMusica(), modulador.getVocoder(), canales, milisegundos, frecuenciaMuestreo);
+
+                    // Terminada la vocodificación
+                    if (modulador.error != 0) {
+                        todaviaNoError = false;
+                        textArea.append("Error realizando la vocodificación...\n");
+                        bar.setValue(bar.getMaximum());
+                        modulador.error = 0;
+                    }
+                    archivosList.add(modulador.getVocoder());
+                    volumenesList.add((double) sliderVocoder.getValue());
                 }
-                
-                textArea.append("Modulando la voz a altas frecuencias...\n");
-                bar.setValue(bar.getMaximum());
-                modulador.setSilent(getRutaTemporal("silent"));
-                modulador.SetModulacion(jSlider1.getValue());
-                modulador.hacerSilent(modulador.getVozConvertida(), modulador.getSilent());
-                
-                if(modulador.error != 0){
-                    todaviaNoError = false;
-                    textArea.append("Error modulando la voz a altas frecuencias...\n");
-                    bar.setValue(bar.getMaximum());
-                    modulador.error = 0;
-                }
-                
-                /*
-                textArea.append("Realizando la Vocodificación...\n");
-                bar.setValue(bar.getMaximum());
-                modulador.setVocoder(getRutaTemporal("vocoder"));
-                pequeno = modulador.getPequeno(modulador.getMusica(), modulador.getVozConvertida());
-                if (pequeno == 1) {
-                    modulador.multiplicarOndas(modulador.getMusica(), modulador.getVozConvertida(), modulador.getVocoder());
-                } else if (pequeno == 2) {
-                    modulador.multiplicarOndas(modulador.getVozConvertida(), modulador.getMusica(), modulador.getVocoder());
-                } else {
-                    modulador.error = 1;
-                }
-                
-                if(modulador.error != 0){
-                    todaviaNoError = false;
-                    textArea.append("Error realizando la vocodificación...\n");
-                    bar.setValue(bar.getMaximum());
-                    modulador.error = 0;
-                }
-                * */
-                
-                
-                if (todaviaNoError == true) {
+
+
+                if (todaviaNoError == true && archivosList.size() > 0) {
                     textArea.append("Juntando todas las pistas...\n");
                     bar.setValue(bar.getMaximum());
                     modulador.setOutput(renuevaRutaTerminado());
-                    String[] arrayPistas = {modulador.getSilent(), modulador.getMusica(), modulador.getisocronicoIntegrado(), modulador.getbinaural()};
+                    //String[] arrayPistas = {modulador.getSilent(), modulador.getMusica(), modulador.getisocronicoIntegrado(), modulador.getbinaural(), modulador.getVocoder()};
+                    String[] arrayPistas = archivosList.toArray(new String[archivosList.size()]);
                     // Pasar los volumenes en base a 100 en porcentaje
-                    int[] arrayVolumenes = {sliderVolumenSilent.getValue(), sliderVolumenMusica.getValue(), sliderVolumenIsocronico.getValue(), sliderVolumenBinaural.getValue()};
+                    //double[] arrayVolumenes = {sliderVolumenSilent.getValue(), sliderVolumenMusica.getValue(), sliderVolumenIsocronico.getValue(), sliderVolumenBinaural.getValue() / 10, sliderVocoder.getValue()};
+                    double[] arrayVolumenes = new double[volumenesList.size()];
+                    for(int i = 0; i<arrayVolumenes.length; i++){
+                        arrayVolumenes[i] = volumenesList.get(i);
+                    }
                     modulador.sumarOndas(arrayPistas, arrayVolumenes, modulador.getOutput());
                 }
-                
-                if(modulador.error != 0){
+
+                if (modulador.error != 0) {
                     todaviaNoError = false;
                     textArea.append("Error juntando todas las pistas...\n");
                     bar.setValue(bar.getMaximum());
                     modulador.error = 0;
                 }
 
-                
+
                 textArea.append("Borrando los archivos temporales...\n");
                 bar.setValue(bar.getMaximum());
                 // Borramos todos los archivos temporales generados en el proceso
                 modulador.borrarTemporales();
-                
-                if(ModulateWav.errorStatic == true){
-                    textArea.append("No se han podido borrar todos los archivos.");
+
+                if (ModulateWav.errorStatic == true) {
+                    textArea.append("No se han podido borrar todos los archivos.\n");
                 }
 
                 // Habilitamos de nuevo los controles
@@ -911,7 +1060,11 @@ public class Editor extends javax.swing.JFrame {
                 botonMusica.setEnabled(true);
                 activaControles();
 
-                if (modulador.getPorcentajeSobremodulacion() > 0.0 && todaviaNoError == true) {
+                if(archivosList.isEmpty()){
+                    textArea.append("Todos los volúmenes están a 0%\n");
+                    bar.setValue(bar.getMaximum());
+                }
+                else if (modulador.getPorcentajeSobremodulacion() > 0.0 && todaviaNoError == true) {
                     DecimalFormat dec = new DecimalFormat("#0.00");
                     textArea.append("Creado: " + dec.format(modulador.getPorcentajeSobremodulacion()) + "% sobremodulado (demasiado volumen)\n");
                     bar.setValue(bar.getMaximum());
@@ -962,11 +1115,11 @@ public class Editor extends javax.swing.JFrame {
             return null;
         }
     };
-    
+
     public Float getValorFTonos() {
         return new Float(sliderFrecuenciaTonos.getValue()) / 100;
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -1005,17 +1158,24 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JFileChooser EscogeAfirmaciones;
     private javax.swing.JButton botonAbrir;
     private javax.swing.JButton botonGrabar;
+    private javax.swing.JButton botonMp3ToWav;
     private javax.swing.JButton botonMusica;
     private javax.swing.JButton botonPararGrabacion;
     private javax.swing.JButton botonProcesar;
     private javax.swing.JButton botonRestarRepeticiones;
     private javax.swing.JButton botonSumarRepeticiones;
+    private javax.swing.JButton botonWavToMp3;
+    private javax.swing.JComboBox comboVentanaVocoder;
     private javax.swing.JFileChooser escogeGrabacion;
     private javax.swing.JFileChooser escogeMusica;
     private javax.swing.JLabel infoMusica;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1026,6 +1186,7 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JSlider jSlider1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labelArchivo;
+    private javax.swing.JLabel labelBandasVocoder;
     private javax.swing.JLabel labelFrecuencia;
     private javax.swing.JLabel labelFrecuenciaTonos;
     private javax.swing.JLabel labelLicencia;
@@ -1038,6 +1199,7 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JLabel labelVolumenSilent;
     private javax.swing.JLabel labelVolumenVocoder;
     private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JSlider sliderBandasVocoder;
     private javax.swing.JSlider sliderFrecuenciaTonos;
     private javax.swing.JSlider sliderVocoder;
     private javax.swing.JSlider sliderVolumenBinaural;
@@ -1046,7 +1208,6 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JSlider sliderVolumenSilent;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
-
     // Ruta del archivo abierto con las afirmaciones originales
     static File archivoAbierto;
     // Propiedad del sistema, carpeta de archivos temporales
@@ -1054,15 +1215,16 @@ public class Editor extends javax.swing.JFrame {
     // Pasar el directorio temporal del sistema a la variable
     static String tempDir = System.getProperty(property);
     // Número de repeticiones que tendrá el audio de voz original
-    int nRepeticiones = 30;
+    // TODO cambiar número de repeticiones antes de distribuirlo
+    int nRepeticiones = 1;
     String archivoMusica = "";
 
     public static String getRutaTemporal(String nombre) {
         String rutaVozTemporal = archivoAbierto.getParent() + System.getProperty("file.separator") + nombre + Long.toString(System.nanoTime()) + ".wav";
         return rutaVozTemporal;
     }
-    
-    public static String getRutaTemporal2(String nombre) {
+
+    public static String getRutaTemporalSistema(String nombre) {
         String rutaVozTemporal = tempDir + nombre + Long.toString(System.nanoTime()) + ".wav";
         return rutaVozTemporal;
     }
@@ -1075,6 +1237,7 @@ public class Editor extends javax.swing.JFrame {
         sliderVolumenMusica.setEnabled(false);
         sliderVolumenSilent.setEnabled(false);
         sliderVocoder.setEnabled(false);
+        sliderBandasVocoder.setEnabled(false);
         botonRestarRepeticiones.setEnabled(false);
         botonSumarRepeticiones.setEnabled(false);
     }
@@ -1086,11 +1249,11 @@ public class Editor extends javax.swing.JFrame {
         sliderVolumenIsocronico.setEnabled(true);
         sliderVolumenMusica.setEnabled(true);
         sliderVolumenSilent.setEnabled(true);
-        //sliderVocoder.setEnabled(true);
+        sliderVocoder.setEnabled(true);
+        sliderBandasVocoder.setEnabled(true);
         botonRestarRepeticiones.setEnabled(true);
         botonSumarRepeticiones.setEnabled(true);
     }
-    
     // Aquí las variables que indican la ruta de los archivos
     static String timeStamp;
 
@@ -1124,5 +1287,4 @@ public class Editor extends javax.swing.JFrame {
             return "Archivos de Audio Wave (*.wav)";
         }
     }
-
 }

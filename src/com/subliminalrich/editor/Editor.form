@@ -70,9 +70,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-              <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
               <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
               <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" alignment="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -127,7 +127,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labelLicencia">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Este es un programa gratuito y de libre distribuci&#xf3;n. Versi&#xf3;n 0.2.2.3"/>
+                <Property name="text" type="java.lang.String" value="Este es un programa gratuito y de libre distribuci&#xf3;n. Versi&#xf3;n 0.3.3.0"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelSBR">
@@ -187,7 +187,7 @@
                               </Group>
                               <Component id="labelMusica" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="77" max="32767" attributes="0"/>
+                          <EmptySpace pref="160" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -284,28 +284,49 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="botonRestarRepeticiones" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="botonSumarRepeticiones" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelNumeroRepeticiones" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="labelFrecuencia" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="sliderBandasVocoder" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="labelBandasVocoder" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="comboVentanaVocoder" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="sliderFrecuenciaTonos" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="labelFrecuenciaTonos" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="sliderFrecuenciaTonos" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelFrecuenciaTonos" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="botonRestarRepeticiones" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="botonSumarRepeticiones" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="labelNumeroRepeticiones" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelFrecuencia" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="104" max="32767" attributes="0"/>
+                          <EmptySpace pref="111" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -319,6 +340,8 @@
                               <Component id="labelNumeroRepeticiones" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="sliderFrecuenciaTonos" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelFrecuenciaTonos" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -328,7 +351,17 @@
                               <Component id="jSlider1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelFrecuencia" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="104" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="sliderBandasVocoder" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="labelBandasVocoder" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="comboVentanaVocoder" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="23" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -354,7 +387,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelNumeroRepeticiones">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Repetir audio de voz: 30 veces"/>
+                    <Property name="text" type="java.lang.String" value="Repetir audio de voz: 1 veces"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSlider" name="jSlider1">
@@ -390,6 +423,47 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Frecuencia de tonos: 10.00 hz"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JSlider" name="sliderBandasVocoder">
+                  <Properties>
+                    <Property name="maximum" type="int" value="15"/>
+                    <Property name="minimum" type="int" value="3"/>
+                    <Property name="value" type="int" value="9"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sliderBandasVocoderStateChanged"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelBandasVocoder">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Bandas del Vocoder: 9"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="(M&#xe1;s bandas = M&#xe1;s calidad = M&#xe1;s memoria y tiempo de procesamiento necesarios)"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel5">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Intenta probar primero el resultado con 1 repetici&#xf3;n, tardar&#xe1; menos en procesarse"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="comboVentanaVocoder">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4">
+                        <StringItem index="0" value="Bandas Normales"/>
+                        <StringItem index="1" value="Filtrar Chasquidos"/>
+                        <StringItem index="2" value="Filtro Fuerte"/>
+                        <StringItem index="3" value="&#xa1;Extra Fuerte!"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboVentanaVocoderActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -443,7 +517,7 @@
                                   <Component id="labelVolumenVocoder" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="77" max="32767" attributes="0"/>
+                          <EmptySpace pref="160" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -552,7 +626,6 @@
                 </Component>
                 <Component class="javax.swing.JSlider" name="sliderVocoder">
                   <Properties>
-                    <Property name="value" type="int" value="45"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
@@ -561,8 +634,69 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="labelVolumenVocoder">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Volumen Vocoder: 45%"/>
-                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="text" type="java.lang.String" value="Volumen Vocoder: 50%"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel1">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Conversor">
+                    <Property name="tabTitle" type="java.lang.String" value="Conversor"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="botonWavToMp3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="botonMp3ToWav" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="293" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="botonWavToMp3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonMp3ToWav" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="111" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="botonWavToMp3">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Convertir a Wav"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonWavToMp3ActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="botonMp3ToWav">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Convertir a mp3"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel6">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Selecciona el tipo de conversi&#xf3;n que deseas realizar"/>
                   </Properties>
                 </Component>
               </SubComponents>

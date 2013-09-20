@@ -4,6 +4,7 @@
  */
 package com.subliminalrich.editor;
 
+import it.sauronsoftware.jave.AudioAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -13,6 +14,10 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.EncoderException;
+import it.sauronsoftware.jave.EncodingAttributes;
+import it.sauronsoftware.jave.InputFormatException;
 
 /**
  *
@@ -78,10 +83,8 @@ public class Conversor {
             Logger.getLogger(Conversor.class.getName()).log(Level.SEVERE, null, ex);
             errorMensaje = "Ha fallado la lectura o escritura";
             return 2;
-        }
-        finally{
-            if (inFileStream != null)
-            {
+        } finally {
+            if (inFileStream != null) {
                 inFileStream.close();
             }
         }
@@ -130,7 +133,7 @@ public class Conversor {
             AudioFormat inDataFormat = inFileStream.getFormat();
             // Crea el formato del audio de salida llamando a la función creada más arriba
             AudioFormat outDataFormat = getAudioFormat();
-            
+
 
             if (inFileFormat.getType() == AudioFileFormat.Type.WAVE && AudioSystem.isConversionSupported(outDataFormat, inDataFormat)) {
                 // inFile is WAVE and can be converted to desired format, so let's work on it.
@@ -153,14 +156,43 @@ public class Conversor {
         } catch (IOException e) {
             System.out.println("Error: fallo al leer/escribir " + e + "!");
             errorMensaje = "Error al leer o escribir.";
-        }
-        finally{
-            if (outWav != null){
+        } finally {
+            if (outWav != null) {
                 outWav.close();
             }
-            if (inFileStream != null){
+            if (inFileStream != null) {
                 inFileStream.close();
             }
         }
+    }
+
+    public void convertToMp3(String origen, String destino) throws IllegalArgumentException, InputFormatException, EncoderException {
+        File source = new File(origen);
+        File target = new File(destino);
+        AudioAttributes audio = new AudioAttributes();
+        audio.setCodec("libmp3lame");
+        audio.setBitRate(new Integer(128000));
+        audio.setChannels(new Integer(2));
+        audio.setSamplingRate(new Integer(48000));
+        EncodingAttributes attrs = new EncodingAttributes();
+        attrs.setFormat("mp3");
+        attrs.setAudioAttributes(audio);
+        Encoder encoder = new Encoder();
+        encoder.encode(source, target, attrs);
+    }
+    
+    public void convertToWav(String origen, String destino) throws IllegalArgumentException, InputFormatException, EncoderException {
+        File source = new File(origen);
+        File target = new File(destino);
+        AudioAttributes audio = new AudioAttributes();
+        audio.setCodec("pcm_s32be");
+        audio.setBitRate(new Integer(128000));
+        audio.setChannels(new Integer(2));
+        audio.setSamplingRate(new Integer(48000));
+        EncodingAttributes attrs = new EncodingAttributes();
+        attrs.setFormat("wav");
+        attrs.setAudioAttributes(audio);
+        Encoder encoder = new Encoder();
+        encoder.encode(source, target, attrs);
     }
 }
