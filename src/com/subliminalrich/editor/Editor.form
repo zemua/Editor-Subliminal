@@ -24,6 +24,8 @@
         </Property>
       </Properties>
     </Component>
+    <Component class="javax.swing.JFileChooser" name="escogeConvertir">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -72,7 +74,7 @@
               <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
               <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
               <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
-              <Component id="jTabbedPane1" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -127,7 +129,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labelLicencia">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Este es un programa gratuito y de libre distribuci&#xf3;n. Versi&#xf3;n 0.3.3.0"/>
+                <Property name="text" type="java.lang.String" value="Este es un programa gratuito y de libre distribuci&#xf3;n. Versi&#xf3;n 0.4.0.0"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelSBR">
@@ -187,7 +189,7 @@
                               </Group>
                               <Component id="labelMusica" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="160" max="32767" attributes="0"/>
+                          <EmptySpace pref="113" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -326,7 +328,7 @@
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="111" max="32767" attributes="0"/>
+                          <EmptySpace pref="64" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -517,7 +519,7 @@
                                   <Component id="labelVolumenVocoder" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="160" max="32767" attributes="0"/>
+                          <EmptySpace pref="113" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -661,7 +663,7 @@
                               </Group>
                               <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="293" max="32767" attributes="0"/>
+                          <EmptySpace pref="246" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -683,7 +685,7 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="botonWavToMp3">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Convertir a Wav"/>
+                    <Property name="text" type="java.lang.String" value="Convertir a mp3"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonWavToMp3ActionPerformed"/>
@@ -691,8 +693,11 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="botonMp3ToWav">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Convertir a mp3"/>
+                    <Property name="text" type="java.lang.String" value="Convertir a Wav"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonMp3ToWavActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>

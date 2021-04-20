@@ -47,6 +47,7 @@ public class Editor extends javax.swing.JFrame {
         EscogeAfirmaciones = new javax.swing.JFileChooser();
         escogeGrabacion = new javax.swing.JFileChooser();
         escogeMusica = new javax.swing.JFileChooser();
+        escogeConvertir = new javax.swing.JFileChooser();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         labelLicencia = new javax.swing.JLabel();
@@ -113,7 +114,7 @@ public class Editor extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        labelLicencia.setText("Este es un programa gratuito y de libre distribución. Versión 0.3.3.0");
+        labelLicencia.setText("Este es un programa gratuito y de libre distribución. Versión 0.4.0.0");
 
         labelSBR.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelSBR.setForeground(new java.awt.Color(0, 0, 255));
@@ -201,7 +202,7 @@ public class Editor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(infoMusica))
                     .addComponent(labelMusica))
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +330,7 @@ public class Editor extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,7 +446,7 @@ public class Editor extends javax.swing.JFrame {
                         .addComponent(sliderVocoder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelVolumenVocoder)))
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,14 +480,19 @@ public class Editor extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Volúmenes", jPanel8);
 
-        botonWavToMp3.setText("Convertir a Wav");
+        botonWavToMp3.setText("Convertir a mp3");
         botonWavToMp3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonWavToMp3ActionPerformed(evt);
             }
         });
 
-        botonMp3ToWav.setText("Convertir a mp3");
+        botonMp3ToWav.setText("Convertir a Wav");
+        botonMp3ToWav.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMp3ToWavActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Selecciona el tipo de conversión que deseas realizar");
 
@@ -502,7 +508,7 @@ public class Editor extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(botonMp3ToWav))
                     .addComponent(jLabel6))
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -581,7 +587,7 @@ public class Editor extends javax.swing.JFrame {
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,7 +637,7 @@ public class Editor extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = EscogeAfirmaciones.getSelectedFile();
             try {
-                // What to do with the file
+                // What to do with the input
                 archivoAbierto = file;
                 Conversor modulador = new Conversor(archivoAbierto.getAbsolutePath());
                 if (modulador.necesitaConversion() == 0 || modulador.necesitaConversion() == 1) {
@@ -662,7 +668,7 @@ public class Editor extends javax.swing.JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = escogeGrabacion.getSelectedFile();
             try {
-                // What to do with the file
+                // What to do with the input
                 archivoAbierto = file;
                 grabadora.setRuta(archivoAbierto);
                 grabadora.captureAudio();
@@ -784,8 +790,104 @@ public class Editor extends javax.swing.JFrame {
     }//GEN-LAST:event_comboVentanaVocoderActionPerformed
 
     private void botonWavToMp3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonWavToMp3ActionPerformed
-            // TODO add your handling code here:
+
+        int returnVal = escogeConvertir.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) { // Archivo escogido
+            File input = escogeConvertir.getSelectedFile();
+            try {
+
+                // Qué hacer con el archivo
+                String rutaConversion = input.getParent() + System.getProperty("file.separator") + "Conv" + Long.toString(System.nanoTime()) + ".mp3";
+                File output = new File(rutaConversion);
+
+                // LLamamos al conversor
+                Convertidor conversor = new Convertidor(input, output, 0);
+                conversor.execute();
+            } catch (Exception e) {
+                System.out.println(e.getStackTrace());
+            } 
+        } else { // Selección de archivo cancelada
+            System.out.println("File access cancelled by user.");
+        }
+
     }//GEN-LAST:event_botonWavToMp3ActionPerformed
+
+    private void botonMp3ToWavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMp3ToWavActionPerformed
+
+        int returnVal = escogeConvertir.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) { // Archivo escogido
+            File input = escogeConvertir.getSelectedFile();
+            try {
+
+                // Qué hacer con el archivo
+                String rutaConversion = input.getParent() + System.getProperty("file.separator") + "Conv" + Long.toString(System.nanoTime()) + ".wav";
+                File output = new File(rutaConversion);
+
+                // LLamamos al conversor
+                Convertidor conversor = new Convertidor(input, output, 1); // 1 es para convertir a wav
+                conversor.execute();
+            } catch (Exception e) {
+                System.out.println(e.getStackTrace());
+            } 
+        } else { // Selección de archivo cancelada
+            System.out.println("File access cancelled by user.");
+        }
+
+    }//GEN-LAST:event_botonMp3ToWavActionPerformed
+
+    class Convertidor extends SwingWorker<Void, Void> {
+
+        File input;
+        File output;
+        int tipo;
+
+        public Convertidor(File input, File output, int tipo) {
+            this.input = input;
+            this.output = output;
+            this.tipo = tipo;
+        }
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            boolean activadoGenerar = false;
+            activadoGenerar = botonProcesar.isEnabled();
+            botonProcesar.setEnabled(false);
+            botonGrabar.setEnabled(false);
+            botonAbrir.setEnabled(false);
+            botonMusica.setEnabled(false);
+            
+            JScrollBar bar = scrollPane.getVerticalScrollBar();
+            try {
+                if (tipo == 0) { // tipo 0 a mp3
+                    textArea.append("Convirtiendo archivo a mp3...\n");
+                    bar.setValue(bar.getMaximum());
+                    Conversor conversor = new Conversor();
+                    conversor.convertToMp3(input.getAbsolutePath(), output.getAbsolutePath());
+                    textArea.append("Archivo convertido!\n");
+                    bar.setValue(bar.getMaximum());
+                }
+                if (tipo == 1) { // tipo 1 a wav
+                    textArea.append("Convirtiendo archivo a wav...\n");
+                    bar.setValue(bar.getMaximum());
+                    Conversor conversor = new Conversor();
+                    conversor.convertToWav(input.getAbsolutePath(), output.getAbsolutePath());
+                    textArea.append("Archivo convertido!\n");
+                    bar.setValue(bar.getMaximum());
+                }
+            } catch (Exception e) {
+                textArea.append("¡¡Se ha producido un error!!\n");
+                    bar.setValue(bar.getMaximum());
+                
+            }
+            finally{
+                botonProcesar.setEnabled(activadoGenerar);
+                botonGrabar.setEnabled(true);
+                botonAbrir.setEnabled(true);
+                botonMusica.setEnabled(true);
+            }
+            return null;
+        }
+    };
 
     class Trabajador extends SwingWorker<Void, Void> {
 
@@ -1030,7 +1132,7 @@ public class Editor extends javax.swing.JFrame {
                     // Pasar los volumenes en base a 100 en porcentaje
                     //double[] arrayVolumenes = {sliderVolumenSilent.getValue(), sliderVolumenMusica.getValue(), sliderVolumenIsocronico.getValue(), sliderVolumenBinaural.getValue() / 10, sliderVocoder.getValue()};
                     double[] arrayVolumenes = new double[volumenesList.size()];
-                    for(int i = 0; i<arrayVolumenes.length; i++){
+                    for (int i = 0; i < arrayVolumenes.length; i++) {
                         arrayVolumenes[i] = volumenesList.get(i);
                     }
                     modulador.sumarOndas(arrayPistas, arrayVolumenes, modulador.getOutput());
@@ -1060,11 +1162,10 @@ public class Editor extends javax.swing.JFrame {
                 botonMusica.setEnabled(true);
                 activaControles();
 
-                if(archivosList.isEmpty()){
+                if (archivosList.isEmpty()) {
                     textArea.append("Todos los volúmenes están a 0%\n");
                     bar.setValue(bar.getMaximum());
-                }
-                else if (modulador.getPorcentajeSobremodulacion() > 0.0 && todaviaNoError == true) {
+                } else if (modulador.getPorcentajeSobremodulacion() > 0.0 && todaviaNoError == true) {
                     DecimalFormat dec = new DecimalFormat("#0.00");
                     textArea.append("Creado: " + dec.format(modulador.getPorcentajeSobremodulacion()) + "% sobremodulado (demasiado volumen)\n");
                     bar.setValue(bar.getMaximum());
@@ -1097,7 +1198,7 @@ public class Editor extends javax.swing.JFrame {
         @Override
         protected Void doInBackground() throws Exception {
 
-            //Set the file type and the file extension
+            //Set the input type and the input extension
             archivoAbierto = new File(grabadora.getRuta());
             // se ha establecido al ruta al hacer click en grabar
             AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
@@ -1166,6 +1267,7 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JButton botonSumarRepeticiones;
     private javax.swing.JButton botonWavToMp3;
     private javax.swing.JComboBox comboVentanaVocoder;
+    private javax.swing.JFileChooser escogeConvertir;
     private javax.swing.JFileChooser escogeGrabacion;
     private javax.swing.JFileChooser escogeMusica;
     private javax.swing.JLabel infoMusica;
@@ -1240,6 +1342,8 @@ public class Editor extends javax.swing.JFrame {
         sliderBandasVocoder.setEnabled(false);
         botonRestarRepeticiones.setEnabled(false);
         botonSumarRepeticiones.setEnabled(false);
+        botonMp3ToWav.setEnabled(false);
+        botonWavToMp3.setEnabled(false);
     }
 
     public void activaControles() {
@@ -1253,6 +1357,8 @@ public class Editor extends javax.swing.JFrame {
         sliderBandasVocoder.setEnabled(true);
         botonRestarRepeticiones.setEnabled(true);
         botonSumarRepeticiones.setEnabled(true);
+        botonMp3ToWav.setEnabled(true);
+        botonWavToMp3.setEnabled(true);
     }
     // Aquí las variables que indican la ruta de los archivos
     static String timeStamp;

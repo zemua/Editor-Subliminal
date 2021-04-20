@@ -35,7 +35,7 @@ public class Grabadora {
     
     public void setRuta(File file){
         // Poner aquí la ruta completa desde el directorio de destino
-        this.rutaGrabacion = file.getAbsolutePath() + "Grabacion" + Long.toString(System.nanoTime()) + ".wav";
+        this.rutaGrabacion = file.getAbsolutePath() + System.getProperty("file.separator") + "Grabacion" + Long.toString(System.nanoTime()) + ".wav";
     }
     
     String getRuta(){

@@ -40,6 +40,9 @@ public class Conversor {
     public Conversor(String audioEntrada) {
         this.archivoConvertir = audioEntrada;
     }
+    public Conversor(){
+        
+    }
 
     public void setCanales(int canales) {
         this.canales = canales;
@@ -185,7 +188,7 @@ public class Conversor {
         File source = new File(origen);
         File target = new File(destino);
         AudioAttributes audio = new AudioAttributes();
-        audio.setCodec("pcm_s32be");
+        audio.setCodec("pcm_s16le");
         audio.setBitRate(new Integer(128000));
         audio.setChannels(new Integer(2));
         audio.setSamplingRate(new Integer(48000));
